@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.controller;
 
+import cn.hutool.http.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.tencent.wxcloudrun.config.ApiResponse;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
@@ -46,6 +48,19 @@ public class CounterController {
     }
 
     return ApiResponse.ok(count);
+  }
+
+  /**
+   * 获取当前计数
+   * @return API response json
+   */
+  @GetMapping(value = "/api/getAccessToken")
+  ApiResponse getAccessToken() {
+    logger.info("/api/getAccessToken get request");
+//    HttpRequest.newBuilder()
+//            .uri(URI.create("https://api.weixin.qq.com/wxa/getwxadevinfo"))
+//            .build();
+    return ApiResponse.ok(HttpUtil.get("https://api.weixin.qq.com/wxa/getwxadevinfo"));
   }
 
 
